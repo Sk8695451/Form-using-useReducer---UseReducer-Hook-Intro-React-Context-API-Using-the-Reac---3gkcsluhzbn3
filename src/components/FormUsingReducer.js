@@ -1,38 +1,38 @@
- import React, { useReducer } from "react"
+import React,{ useReducer } from "react"
 import { signUpFormReducer } from "../reducers/signUpFormReducer"
 import { signUpFormValidation } from "../utils/signupformvalidation"
 const initialFormState = {
-    input: {
-        "name": '',
-        "email": '',
-        "password": '',
-        "consent": false
+    input:{
+        "name":'',
+        "email":'',
+        "password":'',
+        "consent":false
     },
-    errors: {
-        "name": '',
-        "email": '',
-        "password": '',
+    errors:{
+        "name":'',
+        "email":'',
+        "password":'',
     }
 
 }
 const FormUsingReducer = () => {
-    const [formState, dispatch] = useReducer(signUpFormReducer, initialFormState)
+    const [formState,dispatch] = useReducer(signUpFormReducer,initialFormState) 
 
-    const onInput = (e) => {
+    const onInput = (e) =>{
         //console.log({type:'input',payload:{field:e.target.id,value:e.target.value}});
-        dispatch({ type: 'input', payload: { field: e.target.id, value: e.target.value } })
+        dispatch({type:'input',payload:{field:e.target.id,value:e.target.value}})
     }
-    const onFormSubmit = (e) => {
+    const onFormSubmit = (e) =>{
         e.preventDefault()
-        dispatch({ type: 'resetErrors' })
+        dispatch({type:'resetErrors'})
         const errors = signUpFormValidation(formState.input)
-        if (errors !== null) {
-            for (const m in errors) {
-                dispatch({ type: 'error', payload: { field: m, value: errors[m] } })
+        if(errors !== null){
+            for (const m in errors){
+                dispatch({type:'error',payload:{field:m,value:errors[m]}})
             }
-        }
+        }   
     }
-
+    
     return (
         <form id="reducer-form" onSubmit={onFormSubmit}>
             <label htmlFor="name">Name </label>
@@ -41,7 +41,7 @@ const FormUsingReducer = () => {
             <br />
             <br />
             <label htmlFor="password">Password </label>
-            <input type="text" id="password" value={formState["password"]} onChange={onInput} />
+            <input type="text" id="password"  value={formState["password"]} onChange={onInput}/>
             {formState.errors["password"]}
             <br />
             <br />
